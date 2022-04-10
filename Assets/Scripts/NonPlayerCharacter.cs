@@ -12,6 +12,15 @@ public class NonPlayerCharacter : MonoBehaviour
     private Vector3 defaultPos; //プレイヤーの位置を確認してウインドウを出す位置(プレイヤーの位置が)
     private Vector3 offsetPos;  //プレイヤーの位置を確認してウインドウを出す位置
 
+    // EventDataのEventTypeのTalkを会話イベントとして設定
+    private EventData.EventType eventType = EventData.EventType.Talk;
+
+    // この番号と上記の EventType を使って、スクリプタブル・オブジェクト内から会話イベントのデータを取得します
+    [SerializeField, Header("NPC 会話イベントの通し番号")]
+    private int npcTalkEventNo;
+    [SerializeField, Header("NPC 会話イベントのデータ")]
+    private EventData eventData;
+
     void Start()
     {
         // 子オブジェクトにアタッチされている DialogController スクリプトを取得して変数に代入
@@ -21,6 +30,9 @@ public class NonPlayerCharacter : MonoBehaviour
         defaultPos = dialogController.transform.position;
         // offsetPos:Y座標を- 5.0f 低い位置に配置する
         offsetPos = new Vector3(dialogController.transform.position.x, dialogController.transform.position.y - 5.0f, dialogController.transform.position.z);
+
+        // DataBaseManager に登録してあるスクリプタブル・オブジェクトを検索し、指定した通し番号の EventData を NPC 用の EventData として取得して代入
+        eventData = DataBaseManager.instance.GetEventDataFromNPCEvent(npcTalkEventNo);
 
     }
 
@@ -48,10 +60,8 @@ public class NonPlayerCharacter : MonoBehaviour
 
         // TODO プレイヤーの位置を確認してウインドウを出す位置を決定する
 
-        // 会話イベントのウインドウを表示する
-        dialogController.DisplayDialog();
-
-        // Debug.Log("会話ウインドウを開く");
+        // eventDataから会話イベントのウインドウを表示する
+        dialogController.DisplayDialog(eventData);
 
     }
 
@@ -67,8 +77,6 @@ public class NonPlayerCharacter : MonoBehaviour
 
         // 会話イベントのウインドウを閉じる
         dialogController.HideDialog();
-
-        // Debug.Log("会話ウインドウを閉じる");
 
     }
 }
