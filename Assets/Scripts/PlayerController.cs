@@ -19,10 +19,13 @@ public class PlayerController : MonoBehaviour
 
     private bool isTalking;                 // 会話イベント中かどうかの判定用。true の場合には会話イベント中
 
+    private EncountManager encountManager;       // EncountManager クラスの情報を代入するための変数
+
     void Start()
     {
 
-        // このスクリプトがアタッチされているゲームオブジェクトにアタッチされているコンポーネントの中から、<指定>したコンポーネントの情報を取得して、左辺に用意した変数に代入
+        // このスクリプトがアタッチされているゲームオブジェクトにアタッチされているコンポーネントの中から、
+        // <指定>したコンポーネントの情報を取得して、左辺に用意した変数に代入
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
@@ -37,8 +40,6 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-
-
 
         // InputManager の Horizontal に登録してあるキーが入力されたら、水平(横)方向の入力値として代入
         horizontal = Input.GetAxis("Horizontal");
@@ -68,6 +69,14 @@ public class PlayerController : MonoBehaviour
 
         // velocity(速度)に新しい値を代入して、ゲームオブジェクトを移動させる
         rb.velocity = dir * moveSpeed;
+
+        // プレイヤーの magnitude(ベクトルの長さ) が 0.5 よりも大きく(移動しているとき)、
+        // encountManager 変数に EncountManager の情報が代入されている場合
+        if(rb.velocity.magnitude>0.5f && encountManager)
+        {
+            // ランダムエンカウントが発生するか判定
+            encountManager.JudgeRandomEncount();
+        }
     }
 
     /// <summary>
@@ -100,7 +109,6 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// 行動ボタンを押した際の処理
     /// </summary>
-
     private void Action()
     {
         if (Input.GetButtonDown("Action"))
@@ -140,5 +148,15 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// PlayerController に必要な外部のクラス情報を設定
+    /// </summary>
+    /// <param name="encountManager"></param>
+    public void SetUpPlayerController(EncountManager encountManager)
+    {
+        // メソッドを通じて、外部のクラスの情報を取得して変数に代入
+        this.encountManager = encountManager;
     }
 }
