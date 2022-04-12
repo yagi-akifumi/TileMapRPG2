@@ -14,6 +14,17 @@ public class GameData : MonoBehaviour
     private Vector3 currentPlayerPos;       // エンカウント時の Player の位置情報を保持するための変数
     private Vector2 currentLookDirection;   // エンカウント時の Player の向き情報を保持するための変数
 
+    [System.Serializable]
+    public class ItemInventryData
+    {
+        public ItemName itemName;    // アイテムの名前
+        public int count;            // 所持数
+        public int number;           // 所持している通し番号
+    }
+
+    [Header("所持アイテムのリスト")]
+    public List<ItemInventryData> itemInventryDatasList = new List<ItemInventryData>();
+
     void Awake()
     {
         // インスタンスがnullならこのインスタンスを使う。
@@ -62,6 +73,57 @@ public class GameData : MonoBehaviour
         // 保持している情報を戻す
         return currentLookDirection;
     }
+
+    /// <summary>
+    /// ItemInvetryDatasList の最大数を取得
+    /// </summary>
+    /// <returns></returns>
+    public int GetItemInventryListCount()
+    {
+        return itemInventryDatasList.Count;
+    }
+
+    /// <summary>
+    /// ItemInvetryDatasList の中から指定した要素番号の ItemInventryData 情報を取得
+    /// </summary>
+    /// <param name="no"></param>
+    /// <returns></returns>
+    public ItemInventryData GetItemInventryData(int no)
+    {
+        return itemInventryDatasList[no];
+    }
+
+    /// <summary>
+    /// 所持アイテムのセーブ
+    /// </summary>
+    public void SaveItemInventryDatas() {
+
+　　　　// 所持しているアイテムの数だけ処理を行う
+        for (int i = 0; i < itemInventryDatasList.Count; i++) {
+
+            // 所持しているアイテムの情報を１つの文字列としてセーブするための準備を行う
+            // 【SetString(string Key,string Value)】文字列をセーブ。string Keyを検索して、string Valueがセーブされる文字例
+            PlayerPrefs.SetString(itemInventryDatasList[i].itemName.ToString(), itemInventryDatasList[i].itemName.ToString() + "," + itemInventryDatasList[i].count.ToString() + "," + i.ToString());
+
+            Debug.Log("セーブのキー : " + itemInventryDatasList[i].itemName.ToString());
+            Debug.Log("セーブ内容 : " + itemInventryDatasList[i].itemName.ToString() + "," + itemInventryDatasList[i].count.ToString() + "," + i.ToString());
+        }
+
+　　　　// セーブ
+        PlayerPrefs.Save();
+
+        Debug.Log("ItemInventry セーブ完了");
+    }
+
+　　// デバッグ用
+    private void Update() {
+
+　　　　// デバッグ用　セーブ
+        if (Input.GetKeyDown(KeyCode.K) && isDebug) {
+            SaveItemInventryDatas();
+        }
+    }
+
 }
 
 

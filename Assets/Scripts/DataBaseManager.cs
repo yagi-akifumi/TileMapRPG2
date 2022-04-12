@@ -14,7 +14,7 @@ public class DataBaseManager : MonoBehaviour
     [SerializeField]
     private ItemDataSO itemDataSO;      //スクリプタブル・オブジェクトを登録して管理するための変数を ItemDataSO 型で宣言
 
-    // ItemType ごとに分類した List
+    // ItemType ごとに分類した List（各アイテムの詳細がわかる）
     [SerializeField]
     private List<ItemDataSO.ItemData> BukiItemDatasList = new List<ItemDataSO.ItemData>();
     [SerializeField]
@@ -24,7 +24,7 @@ public class DataBaseManager : MonoBehaviour
     [SerializeField]
     private List<ItemDataSO.ItemData> DaijinamonoItemDatasList = new List<ItemDataSO.ItemData>();
 
-    // ItemType ごとに分類したアイテムの名前の List
+    // ItemType ごとに分類したアイテムの名前の List（各アイテムの名前のみがわかる）
     [SerializeField]
     private List<string> BukiItemNamesList = new List<string>();　//　<=　ItemType が Equip である文字列だけを管理する List 
     [SerializeField]
@@ -95,7 +95,7 @@ public class DataBaseManager : MonoBehaviour
             switch (itemData.itemType)
             {
 
-                // itemData.itemType == ItemType.Equip の場合には、equipItemDatasList 変数に itemData 変数の値を追加する
+                // itemData.itemType == ItemType.Buki の場合には、BukiItemDatasList 変数に itemData 変数の値を追加する
                 case ItemType.Buki:
                     BukiItemDatasList.Add(itemData);
                     break;
@@ -118,6 +118,7 @@ public class DataBaseManager : MonoBehaviour
     /// <summary>
     /// アイテムの名前をアイテムの種類ごとに分類して List を作成
     /// </summary>
+    // TODO 山浦先生に質問する。
     private void CreateItemNamesListFromItemData()
     {
 
@@ -128,7 +129,10 @@ public class DataBaseManager : MonoBehaviour
         foreach (ItemDataSO.ItemData itemData in itemDataSO.itemDataList)
         {
 
-            // values 配列変数の中を先頭から順番に検索し、現在取り出している itemData 変数の itemName と合致した値があれば 
+            // values 配列変数の中を先頭から順番に検索し、現在取り出している itemData 変数の itemName と合致した値があれば
+            // TODO 山浦先生に質問する。(x => x == itemData.itemName.ToString())←ここの情報の処理方法がわからない
+            // 【string.IsNullOrEmpty()】()内の文字列がnullか空の文字列か判別する
+
             if (!string.IsNullOrEmpty(values.FirstOrDefault(x => x == itemData.itemName.ToString())))
             {
 
@@ -140,6 +144,7 @@ public class DataBaseManager : MonoBehaviour
                 {
 
                     // itemData.itemType == 0(ItemType 型の列挙子の最初のもの)
+                    //TODO caseはいくつ必要なのか決まっている？
                     case 0:
                         BukiItemNamesList.Add(itemName);
                         break;
@@ -156,5 +161,4 @@ public class DataBaseManager : MonoBehaviour
             }
         }
     }
-
 }
