@@ -12,4 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427fed452119b4a0fb4d64b166ea3978, type: 3}
   m_Name: ItemDataSO
   m_EditorClassIdentifier: 
-  itemDataList: []
+  itemDataList:
+  - itemNo: 0
+    itemSprite: {fileID: 0}
+    itemName: 0
+    itemType: 2
+    itemInfo: "HP\u304C30\u56DE\u5FA9\u3059\u308B"
+  - itemNo: 1
+    itemSprite: {fileID: 0}
+    itemName: 1
+    itemType: 0
+    itemInfo: "\u6700\u5F31\u6B66\u5668"
+  - itemNo: 2
+    itemSprite: {fileID: 0}
+    itemName: 2
+    itemType: 1
+    itemInfo: "\u521D\u671F\u306E\u9632\u5177"
+  - itemNo: 3
+    itemSprite: {fileID: 0}
+    itemName: 3
+    itemType: 2
+    itemInfo: "HP\u304C70\u56DE\u5FA9\u3059\u308B"
+  - itemNo: 4
+    itemSprite: {fileID: 0}
+    itemName: 4
+    itemType: 3
+    itemInfo: "\u5730\u4E0B4\u968E\u306B\u3042\u308B"
+  - itemNo: 5
+    itemSprite: {fileID: 0}
+    itemName: 5
+    itemType: 1
+    itemInfo: "\u6700\u5F37\u306E\u9632\u5177"
+  - itemNo: 6
+    itemSprite: {fileID: 0}
+    itemName: 6
+    itemType: 2
+    itemInfo: "\u58F2\u308B\u3068100G\u624B\u306B\u5165\u308B"

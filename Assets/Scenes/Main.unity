@@ -2470,7 +2470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fcecee8bc1841aeb667d691b1f3c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomEncountRate: 5
+  randomEncountRate: 9999
   isEncouting: 0
   isDebug: 0
 --- !u!4 &376887603
