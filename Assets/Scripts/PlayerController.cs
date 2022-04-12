@@ -28,6 +28,24 @@ public class PlayerController : MonoBehaviour
         // <指定>したコンポーネントの情報を取得して、左辺に用意した変数に代入
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
+        // エンカウント後の場合　=>　初めてゲームを実行した場合には実行されない
+        if (GameData.instance.isEncouting)
+        {
+            // Transform で記録すると、前のシーンの PlayerController を参照しているため、
+            // シーン遷移時に PlayerController がなくてエラーで落ちる
+            // Vector3 型ならば問題なし。これで、前の位置に戻れる
+            transform.position = GameData.instance.GetCurrentPlayerPos();
+
+            // エンカウント発生中の状態を解除して、再度、エンカウント発生できる状態に戻す
+            GameData.instance.isEncouting = false;
+
+            // 向いていた向きの状態を取得し、アニメの向きも再現する
+            lookDirection = GameData.instance.GetCurrentLookDirection();
+            anim.SetFloat("Look X", lookDirection.x);
+            anim.SetFloat("Look Y", lookDirection.y);
+        }
+
     }
 
     void Update()
@@ -158,5 +176,15 @@ public class PlayerController : MonoBehaviour
     {
         // メソッドを通じて、外部のクラスの情報を取得して変数に代入
         this.encountManager = encountManager;
+    }
+
+    /// <summary>
+    /// 向いている方向を戻す
+    /// </summary>
+    /// <returns></returns>
+    public Vector2 GetLookDirection()
+    {
+        // 現在のキャラの向いている方向の情報を渡す
+        return lookDirection;
     }
 }

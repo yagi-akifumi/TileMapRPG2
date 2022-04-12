@@ -31,7 +31,10 @@ public class EncountManager : MonoBehaviour
             Debug.Log("エンカウント : " + encountRate);
             GameData.instance.isEncouting = true;
 
-            // TODO プレイヤーキャラの位置と方向の情報を保存
+            // プレイヤーキャラの位置と方向の情報を保存
+            GameData.instance.SetEncountPlayerPosAndDirection(playerController.transform.position, playerController.GetLookDirection());
+
+
 
             // Battle シーンへ遷移
             SceneStateManager.instance.NextScene(SceneStateManager.SceneType.Battle);
