@@ -2472,7 +2472,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomEncountRate: 9999
   isEncouting: 0
-  isDebug: 0
+  isDebug: 1
+  itemInventryDatasList:
+  - itemName: 0
+    count: 1
+    number: 0
+  - itemName: 2
+    count: 2
+    number: 1
 --- !u!4 &376887603
 Transform:
   m_ObjectHideFlags: 0
@@ -10078,6 +10085,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventDataSO: {fileID: 11400000, guid: 7df90a09c836048779e4d504afe0e0b7, type: 2}
+  itemDataSO: {fileID: 11400000, guid: ee6bae31841344947920c435567936b0, type: 2}
+  BukiItemDatasList: []
+  BouguItemDatasList: []
+  DouguItemDatasList: []
+  DaijinamonoItemDatasList: []
+  BukiItemNamesList: []
+  BouguItemNamesList: []
+  DouguItemNamesList: []
+  DaijinamonoItemNamesList: []
 --- !u!4 &1909230339
 Transform:
   m_ObjectHideFlags: 0

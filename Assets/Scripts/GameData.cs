@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
+
 public class GameData : MonoBehaviour
 {
     public static GameData instance;        // シングルトンデザインパターンのクラスにするための変数
@@ -20,6 +21,15 @@ public class GameData : MonoBehaviour
         public ItemName itemName;    // アイテムの名前
         public int count;            // 所持数
         public int number;           // 所持している通し番号
+        private int v1;
+        private int v2;
+
+        public ItemInventryData(ItemName itemName, int v1, int v2)
+        {
+            this.itemName = itemName;
+            this.v1 = v1;
+            this.v2 = v2;
+        }
     }
 
     [Header("所持アイテムのリスト")]
@@ -111,19 +121,54 @@ public class GameData : MonoBehaviour
 
 　　　　// セーブ
         PlayerPrefs.Save();
-
         Debug.Log("ItemInventry セーブ完了");
     }
 
-　　// デバッグ用
-    private void Update() {
+    /// <summary>
+    /// 所持アイテムのロード
+    /// </summary>
+    public void LoadItemInventryDatas()
+    {
 
-　　　　// デバッグ用　セーブ
-        if (Input.GetKeyDown(KeyCode.K) && isDebug) {
-            SaveItemInventryDatas();
+        // アイテムデータ分だけ繰り返す
+        for (int i = 0; i < DataBaseManager.instance.GetItemDataSOCount(); i++)
+        {
+
+            // ItemName でセーブしてあるデータが PlayerPrefs 内にあるか
+            if (!PlayerPrefs.HasKey(DataBaseManager.instance.GetItemDataFromItemNo(i).itemName.ToString()))
+            {
+
+                // セーブデータがなければここで処理を終了し、次のセーブデータを確認する処理へ移る
+                continue;
+            }
+
+            // セーブされているデータを読み込んで配列に代入
+            string[] stringArray = PlayerPrefs.GetString(DataBaseManager.instance.GetItemDataFromItemNo(i).itemName.ToString()).Split(',');
+
+            // セーブデータからアイテムのデータをコンストラクタ・メソッドを利用して復元
+            itemInventryDatasList.Add(new ItemInventryData((ItemName)Enum.Parse(typeof(ItemName), stringArray[0]), int.Parse(stringArray[1]), int.Parse(stringArray[2])));
         }
+
+        // 以前に所持していた番号順で所持アイテムの並び順をソート
+        itemInventryDatasList = itemInventryDatasList.OrderBy(x => x.number).ToList();
+
+        Debug.Log("ItemInventry ロード完了");
     }
 
+    // デバッグ用
+    private void Update()
+    {
+
+        // デバッグ用　セーブ
+        if (Input.GetKeyDown(KeyCode.K) && isDebug)
+        {
+            SaveItemInventryDatas();
+        }
+
+        // デバッグ用　ロード
+        if (Input.GetKeyDown(KeyCode.L) && isDebug)
+        {
+            LoadItemInventryDatas();
+        }
+    }
 }
-
-

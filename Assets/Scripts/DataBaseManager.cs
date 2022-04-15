@@ -140,11 +140,12 @@ public class DataBaseManager : MonoBehaviour
                 string itemName = itemData.itemName.ToString();
 
                 // 現在取り出している itemData 変数の ItemType の値がどの case と合致するかを判定(ここは上のメソッドの switch 文と同じ分岐にしても実装できます。学習のためにキャスト処理を入れています)
+                // enum 武器 → 【cast】型変換→(int) 0 処理している
                 switch ((int)itemData.itemType)
                 {
 
                     // itemData.itemType == 0(ItemType 型の列挙子の最初のもの)
-                    //TODO caseはいくつ必要なのか決まっている？
+      
                     case 0:
                         BukiItemNamesList.Add(itemName);
                         break;
@@ -161,4 +162,69 @@ public class DataBaseManager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// EventDataSO から指定した EventType と EventNo の EventData を照合して取得
+    /// </summary>
+    /// <param name="searchEventType"></param>
+    /// <param name="searchEventNo"></param>
+    /// <returns></returns>
+    public EventData GetEventDataFromEvnetTypeAndEventNo(EventData.EventType searchEventType, int searchEventNo)
+    {
+
+        foreach (EventData eventData in eventDataSO.eventDatasList)
+        {
+            if (eventData.eventType == searchEventType && eventData.no == searchEventNo)
+            {
+                return eventData;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// ItemNo から ItemData を取得
+    /// </summary>
+    /// <param name="itemNo"></param>
+    /// <returns></returns>
+    public ItemDataSO.ItemData GetItemDataFromItemNo(int itemNo)
+    {
+
+        // ItemDataSO スクリプタブル・オブジェクト内の ItemData の情報を１つずつ順番に取り出して itemData 変数に代入
+        foreach (ItemDataSO.ItemData itemData in itemDataSO.itemDataList)
+        {
+
+            // 現在取り出している ItemData の itemNo 変数の値と引数で届いている itemNo の値が同じである場合
+            if (itemData.itemNo == itemNo)
+            {
+
+                // 条件に合致したので、itemData の値を戻す
+                return itemData;
+            }
+        }
+
+        // 上記の検索結果、スクリプタブル・オブジェクト内に該当する情報がない場合、null を戻す
+        return null;
+    }
+
+
+    /// <summary>
+    /// ItemName から ItemData を取得
+    /// </summary>
+    /// <param name="itemName"></param>
+    /// <returns></returns>
+    public ItemDataSO.ItemData GetItemDataFromItemName(ItemName itemName)
+    {
+        // 上段にある GetItemDataFromItemNo メソッドと同じ内容の処理を、検索対象を itemName にして実行して取得
+        return itemDataSO.itemDataList.FirstOrDefault(x => x.itemName == itemName);
+    }
+
+    /// <summary>
+    /// ItemData の 最大要素数を取得
+    /// </summary>
+    /// <returns></returns>
+    public int GetItemDataSOCount()
+    {
+        return itemDataSO.itemDataList.Count;
+    }
+
 }
