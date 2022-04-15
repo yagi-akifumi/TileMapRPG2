@@ -21,15 +21,15 @@ public class GameData : MonoBehaviour
         public ItemName itemName;    // アイテムの名前
         public int count;            // 所持数
         public int number;           // 所持している通し番号
-        private int v1;
-        private int v2;
+        //private int v1;
+        //private int v2;
 
-        public ItemInventryData(ItemName itemName, int v1, int v2)
-        {
-            this.itemName = itemName;
-            this.v1 = v1;
-            this.v2 = v2;
-        }
+        //public ItemInventryData(ItemName itemName, int v1, int v2)
+        //{
+        //  this.itemName = itemName;
+        //  this.v1 = v1;
+        //  this.v2 = v2;
+        //}
     }
 
     [Header("所持アイテムのリスト")]
