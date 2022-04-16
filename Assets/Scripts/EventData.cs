@@ -22,6 +22,8 @@ public class EventData
     public string dialog;          // NPC のメッセージ、対象物のメッセージ、など
     public Sprite eventSprite;     // イベントの画像データ
 
-    // TODO そのほかに追加する場合には以下に補記する
+    public ItemName eventItemName; // イベントで獲得できるアイテム
+    public int eventItemCount;     // イベントで獲得できる個数
 
+    // TODO そのほかに追加する場合には以下に補記する
 }
