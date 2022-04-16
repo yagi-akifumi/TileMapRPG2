@@ -81,6 +81,7 @@ public class DialogController : MonoBehaviour
         GetEventItems(eventData);
 
         // TODO 獲得した宝箱の番号を GameData に追加
+        GameData.instance.AddSearchEventNum(treasureBox.treasureEventNo);
 
         // TODO 獲得した宝箱の番号をセーブ
 

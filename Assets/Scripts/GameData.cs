@@ -39,6 +39,9 @@ public class GameData : MonoBehaviour
     [Header("所持アイテムのリスト")]
     public List<ItemInventryData> itemInventryDatasList = new List<ItemInventryData>();
 
+    [Header("獲得済の探索イベントの番号")]
+    public List<int> getSearchEventNumsList = new List<int>();
+
     void Awake()
     {
         // インスタンスがnullならこのインスタンスを使う。
@@ -235,7 +238,7 @@ public class GameData : MonoBehaviour
             // 所持しているアイテムの場合
             if (itemInventryData.itemName == itemName)
             {
-                // 所持数を加算
+                // 所持数を減算
                 itemInventryData.count -= amount;
                 Debug.Log("リストに対象アイテムを減算 : " + itemName + " / 合計 : " + itemInventryData.count + " 個");
 
@@ -248,6 +251,20 @@ public class GameData : MonoBehaviour
                 }
                 return;
             } 
+        }
+        Debug.Log("リストに対象アイテムなし");
+    }
+
+    /// <summary>
+    /// 獲得した探索イベントの番号を保持
+    /// </summary>
+    public void AddSearchEventNum(int searchEventNum)
+    {
+        // 引数の探索イベントの番号が List に登録されていない場合(このチェックで重複登録を防いでいる)
+        if (!getSearchEventNumsList.Contains(searchEventNum))
+        {
+            // 獲得した探索イベントの番号を追加
+            getSearchEventNumsList.Add(searchEventNum);
         }
     }
 }
