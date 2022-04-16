@@ -21,6 +21,24 @@ public class PlayerController : MonoBehaviour
 
     private EncountManager encountManager;       // EncountManager クラスの情報を代入するための変数
 
+    //[SerializeField]
+    //private OperationStatusWindow operationStatusWindow = null;                     // アイテムインベントリーウインドウの参照用
+
+    private string[] actionlayerMasks = new string[2] { "NPC", "TresureBox" };　　　// LayerMask の設定
+
+    public bool IsTalking　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 // isTalking のプロパティ
+    {
+        set
+        {
+            isTalking = value;
+        }
+
+        get
+        {
+            return isTalking;
+        }
+    }
+
     void Start()
     {
 
@@ -50,6 +68,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // ステータス画面表示中は操作できない
+        //if (operationStatusWindow.propertyWindow.activeSelf)
+        //{
+        //return;
+        //}
+
         // アクション
         Action();
 
@@ -71,6 +95,13 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        // ステータス画面表示中は操作できない
+        //if (operationStatusWindow.propertyWindow.activeSelf)
+        //{
+        //rb.velocity = Vector2.zero;
+        //return;
+        //}
 
         // 移動
         Move();
@@ -132,8 +163,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Action"))
         {
             // Player の位置を起点とし、Player の向いている方向に 1.0f 分だけ Ray を発射し、
-            // NPC レイヤーを持つゲームオブジェクトに接触するか判定し、その情報を hit 変数に代入
-            RaycastHit2D hit = Physics2D.Raycast(rb.position, lookDirection, 1.0f, LayerMask.GetMask("NPC"));
+            // 数の文字列の Layer を判定対象に接触するか判定し、その情報を hit 変数に代入
+            RaycastHit2D hit = Physics2D.Raycast(rb.position, lookDirection, 1.0f, LayerMask.GetMask(actionlayerMasks));
 
             // Scene ビューにて Ray の可視化
             Debug.DrawRay(rb.position, lookDirection, Color.red, 1.0f);
@@ -144,7 +175,7 @@ public class PlayerController : MonoBehaviour
                 // そのゲームオブジェクトにアタッチされている NonPlayerCharacter クラスが取得できた場合
                 if (hit.collider.TryGetComponent(out NonPlayerCharacter npc))
                 {
-                    // 取得した NonPlayerCharacter クラスを持つゲームオブジェクトと会話中ではない場合
+                    // 取得した NPCと会話中ではない場合
                     if (!npc.isTalking)
                     {
                         // NPC との会話イベントを発生させる
@@ -162,7 +193,25 @@ public class PlayerController : MonoBehaviour
                         // Player を会話イベントをしていない状態にする
                         isTalking = false;
                     }
-
+                }
+                // そのゲームオブジェクトにアタッチされている TreasureBox クラスが取得できた場合
+                else if (hit.collider.TryGetComponent(out TreasureBox treasureBox))
+                {
+                    // 取得した trasureBoxが開いていない場合
+                    if (!treasureBox.isOpen)
+                    {
+                        //  探索イベント用の会話ウインドウを開く
+                        treasureBox.OpenTresureBox(transform.position, this);
+                        //  Player を会話イベント中の状態にする
+                        isTalking = true;
+                    }
+                    else
+                    {
+                        // 探索イベントの会話ウインドウを閉じて終了する
+                        treasureBox.CloseTreasureBox();
+                        // Player を会話イベントをしていない状態にする
+                        isTalking = false;
+                    }
                 }
             }
         }
