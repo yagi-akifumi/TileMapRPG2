@@ -21,15 +21,19 @@ public class GameData : MonoBehaviour
         public ItemName itemName;    // アイテムの名前
         public int count;            // 所持数
         public int number;           // 所持している通し番号
-        //private int v1;
-        //private int v2;
 
-        //public ItemInventryData(ItemName itemName, int v1, int v2)
-        //{
-        //  this.itemName = itemName;
-        //  this.v1 = v1;
-        //  this.v2 = v2;
-        //}
+        /// <summary>
+        /// ItemInventryData クラスのコンストラクタ
+        /// </summary>
+        /// <param name="name">アイテムの名前</param>
+        /// <param name="value">アイテムの所持数</param>
+        /// <param name="num">アイテムを所持した際の通し番号</param>
+        public ItemInventryData(ItemName name, int value, int num)
+        {
+            itemName = name;
+            count = value;
+            number = num;
+        }
     }
 
     [Header("所持アイテムのリスト")]
@@ -106,10 +110,11 @@ public class GameData : MonoBehaviour
     /// <summary>
     /// 所持アイテムのセーブ
     /// </summary>
-    public void SaveItemInventryDatas() {
-
-　　　　// 所持しているアイテムの数だけ処理を行う
-        for (int i = 0; i < itemInventryDatasList.Count; i++) {
+    public void SaveItemInventryDatas()
+    {
+        // 所持しているアイテムの数だけ処理を行う
+        for (int i = 0; i < itemInventryDatasList.Count; i++)
+        {
 
             // 所持しているアイテムの情報を１つの文字列としてセーブするための準備を行う
             // 【SetString(string Key,string Value)】文字列をセーブ。string Keyを検索して、string Valueがセーブされる文字例
@@ -119,7 +124,7 @@ public class GameData : MonoBehaviour
             Debug.Log("セーブ内容 : " + itemInventryDatasList[i].itemName.ToString() + "," + itemInventryDatasList[i].count.ToString() + "," + i.ToString());
         }
 
-　　　　// セーブ
+        // セーブ
         PlayerPrefs.Save();
         Debug.Log("ItemInventry セーブ完了");
     }
@@ -169,6 +174,80 @@ public class GameData : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L) && isDebug)
         {
             LoadItemInventryDatas();
+        }
+
+        // デバッグ用　アイテムの追加。所持している場合には加算
+        if (Input.GetKeyDown(KeyCode.I) && isDebug)
+        {
+            // 追加・加算したいアイテムの名前と数を引数に指定してメソッドを呼び出し
+            // 引数を変更することで追加・加算するアイテムを指定する
+            AddItemInventryData(ItemName.ひのきの棒, 1);
+        }
+
+        // デバッグ用　アイテムの削除。所持している場合には減算
+        if (Input.GetKeyDown(KeyCode.O) && isDebug)
+        {
+            // 追加・加算したいアイテムの名前と数を引数に指定してメソッドを呼び出し
+            // 引数を変更することで追加・加算するアイテムを指定する
+            RemoveItemInventryData(ItemName.ひのきの棒, 1);
+        }
+    }
+
+    /// <summary>
+    /// ItemInvetryData を追加・加算
+    /// </summary>
+    /// <param name="itemName"></param>
+    /// <param name="amount"></param>
+    public void AddItemInventryData(ItemName itemName, int amount = 1)
+    {
+        // List の要素を１つずつ確認して、すでに所持しているアイテムか確認
+        foreach (ItemInventryData itemInventryData in itemInventryDatasList)
+        {
+
+            // 所持しているアイテムの場合
+            if (itemInventryData.itemName == itemName)
+            {
+                // 所持数を加算
+                itemInventryData.count += amount;
+                Debug.Log("リストに対象アイテムを加算 : " + itemName + " / 合計 : " + itemInventryData.count + " 個");
+
+                // 処理を終了
+                return;
+            }
+        }
+
+        // 所持していないアイテムの場合、新しく所持アイテムとして追加する
+        itemInventryDatasList.Add(new ItemInventryData(itemName, amount, itemInventryDatasList.Count));
+
+        Debug.Log("リストに対象アイテムを新規追加 : " + itemName + " / " + amount + " 個");
+    }
+
+    /// <summary>
+    /// ItemInventryData を減算。0 以下になったら削除
+    /// </summary>
+    /// <param name="itemName"></param>
+    /// <param name="amount"></param>
+    public void RemoveItemInventryData(ItemName itemName, int amount = 1)
+    {
+        // List の要素を１つずつ確認して、すでに所持しているアイテムか確認
+        foreach (ItemInventryData itemInventryData in itemInventryDatasList)
+        {
+            // 所持しているアイテムの場合
+            if (itemInventryData.itemName == itemName)
+            {
+                // 所持数を加算
+                itemInventryData.count -= amount;
+                Debug.Log("リストに対象アイテムを減算 : " + itemName + " / 合計 : " + itemInventryData.count + " 個");
+
+                // 所持数が 0 以下になったら
+                if (itemInventryData.count <= 0)
+                {
+                    // 所持アイテムから削除
+                    itemInventryDatasList.Remove(itemInventryData);
+                    Debug.Log("リストから対象アイテムを削除 : " + itemName);
+                }
+                return;
+            } 
         }
     }
 }
