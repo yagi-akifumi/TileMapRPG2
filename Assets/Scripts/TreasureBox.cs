@@ -25,12 +25,11 @@ public class TreasureBox : MonoBehaviour
     private PlayerController playerController;
 
 
-    void Start()
-    {
-
-        // 探索イベントの準備
-        SetUpTresureBox();
-    }
+    //void Start()
+    //{
+    // 探索イベントの準備
+    //SetUpTresureBox();
+    //}
 
     /// <summary>
     /// 探索イベントの準備
@@ -62,7 +61,8 @@ public class TreasureBox : MonoBehaviour
             this.playerController = playerController;
         }
 
-        isOpen = true;
+        //isOpen = true;
+        SwitchStateTresureBox(true);
 
         if (playerPos.y < transform.position.y)
         {
@@ -88,5 +88,32 @@ public class TreasureBox : MonoBehaviour
         //Debug.Log("探索イベント用の会話ウインドウを閉じる");
         // 探索イベント用の会話ウインドウを閉じる
         dialogController.HideDialog();
+    }
+
+    /// <summary>
+    /// 探索イベントの通し番号の取得
+    /// </summary>
+    /// <returns></returns>
+    public int GetTresureEventNum()
+    {
+        return treasureEventNo;
+    }
+
+    /// <summary>
+    /// 探索状態の切り替え(①か②は、いずれかを実装する)
+    /// </summary>
+    /// <param name="isSwitch"></param>
+    public void SwitchStateTresureBox(bool isSwitch)
+    {
+        isOpen = isSwitch;
+
+        if (isOpen)
+        {
+            // ① 宝箱の画像を開封済にする場合
+            spriteRenderer.sprite = eventData.eventSprite;
+
+            // ② 宝箱自体を非表示にする場合
+            //this.gameObject.SetActive(false);
+        }
     }
 }
