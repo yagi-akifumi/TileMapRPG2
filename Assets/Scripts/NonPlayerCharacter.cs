@@ -7,6 +7,11 @@ public class NonPlayerCharacter : MonoBehaviour
     [Header("会話イベント判定用")]
     public bool isTalking;         // true の場合は会話イベント中であるように扱う
 
+    [Header("TalkWindow の使用許可")]
+    public bool isFixedTalkWindowUsing;    // インスペクターより確認できるように public 修飾子とする。確認後は private に変更可能
+    private UIManager uiManager;　　　　　 // UIManager スクリプトの情報を代入するための変数
+
+
     private DialogController dialogController; // DialogController スクリプトの情報を代入するための変数
 
     private Vector3 defaultPos; //プレイヤーの位置を確認してウインドウを出す位置(プレイヤーの位置が)
@@ -34,6 +39,11 @@ public class NonPlayerCharacter : MonoBehaviour
         // DataBaseManager に登録してあるスクリプタブル・オブジェクトを検索し、指定した通し番号の EventData を NPC 用の EventData として取得して代入
         eventData = DataBaseManager.instance.GetEventDataFromNPCEvent(npcTalkEventNo);
 
+        //固定型の会話ウインドウを利用にする場合
+        if (isFixedTalkWindowUsing)
+        {
+            uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        }
     }
 
     /// <summary>
@@ -57,12 +67,17 @@ public class NonPlayerCharacter : MonoBehaviour
             dialogController.transform.position = defaultPos;
         }
 
-
-        // TODO プレイヤーの位置を確認してウインドウを出す位置を決定する
-
-        // eventDataから会話イベントのウインドウを表示する
-        dialogController.DisplayDialog(eventData);
-
+        // 設定されている会話ウインドウの種類に合わせて開く会話ウインドウを分岐
+        if (isFixedTalkWindowUsing)
+        {
+            // 固定型の会話ウインドウを表示する
+            uiManager.OpenTalkWindow(eventData);
+        }
+        else
+        {
+            // 稼働型の会話イベントのウインドウを表示する
+            dialogController.DisplayDialog(eventData);
+        }
     }
 
     /// <summary>
@@ -73,10 +88,14 @@ public class NonPlayerCharacter : MonoBehaviour
         // 会話イベントをしていない状態にする
         isTalking = false;
 
-        // TODO 会話イベントのウインドウを閉じる
-
-        // 会話イベントのウインドウを閉じる
-        dialogController.HideDialog();
-
+        // 設定されている会話ウインドウの種類に合わせて会話イベントのウインドウを閉じる
+        if (isFixedTalkWindowUsing)
+        {
+            uiManager.CloseTalkWindow();
+        }
+        else
+        {
+            dialogController.HideDialog();
+        }
     }
 }
