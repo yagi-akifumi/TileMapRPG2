@@ -16,14 +16,20 @@ public class EventData
 
     public EventType eventType;    // イベントの種類
     public int no;                 // 通し番号
-    public string title;           // タイトル。NPC の名前、探す対象物の名前、など
+    public string title;           // タイトル。NPC の名前、探す対象物の名前、など                            
 
-    [Multiline]
-    public string dialog;          // NPC のメッセージ、対象物のメッセージ、など
-    public Sprite eventSprite;     // イベントの画像データ
+    　[System.Serializable]
+    public class EventDataDetail {
+        public EventProgressType eventProgressType;
 
-    public ItemName eventItemName; // イベントで獲得できるアイテム
-    public int eventItemCount;     // イベントで獲得できる個数
+        [Multiline]
+        public string[] dialogs;       　　　  // NPC のメッセージ、対象物のメッセージ、など
+        public Sprite eventSprite;     　　　　// イベントの画像データ
 
+        public ItemName[] eventItemNames;      // イベントに必要なアイテム、あるいは獲得できるアイテム。配列にします
+        public int[] eventItemCounts;          // イベントに必要な個数、あるいは入手できる個数。配列にします
+    }
+
+    public List<EventDataDetail> eventDataDetailsList = new List<EventDataDetail>();
     // TODO そのほかに追加する場合には以下に補記する
 }

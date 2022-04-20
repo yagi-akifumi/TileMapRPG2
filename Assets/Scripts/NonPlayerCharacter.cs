@@ -19,6 +19,7 @@ public class NonPlayerCharacter : MonoBehaviour
 
     // EventDataのEventTypeのTalkを会話イベントとして設定
     private EventData.EventType eventType = EventData.EventType.Talk;
+    private PlayerController playerController;
 
     // この番号と上記の EventType を使って、スクリプタブル・オブジェクト内から会話イベントのデータを取得します
     [SerializeField, Header("NPC 会話イベントの通し番号")]
@@ -40,18 +41,24 @@ public class NonPlayerCharacter : MonoBehaviour
         eventData = DataBaseManager.instance.GetEventDataFromNPCEvent(npcTalkEventNo);
 
         //固定型の会話ウインドウを利用にする場合
-        if (isFixedTalkWindowUsing)
-        {
-            uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-        }
+        //if (isFixedTalkWindowUsing)
+        //{
+        //uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        //}
     }
 
     /// <summary>
     /// 会話開始
     /// </summary>
-
-    public void PlayTalk(Vector3 playerPos)
+    /// <param name="playerPos"></param>
+    /// <param name="playerController"></param>
+    public void PlayTalk(Vector3 playerPos, PlayerController playerController)
     {
+        if (this.playerController == null)
+        {
+            this.playerController = playerController;
+        }
+
         // 会話イベントを行っている状態にする
         isTalking = true;
 
@@ -71,18 +78,18 @@ public class NonPlayerCharacter : MonoBehaviour
         if (isFixedTalkWindowUsing)
         {
             // 固定型の会話ウインドウを表示する
-            uiManager.OpenTalkWindow(eventData);
+            uiManager.OpenTalkWindow(eventData,this);  //　<=　第2引数を追加します。
         }
         else
         {
+
             // 稼働型の会話イベントのウインドウを表示する
-            dialogController.DisplayDialog(eventData);
+            StartCoroutine(dialogController.DisplayDialog(eventData, this));  //　<=　呼び出し方法を変更し、第2引数を追加します。
         }
     }
-
-    /// <summary>
-    /// 会話終了
-    /// </summary>
+   /// <summary>
+        /// 会話終了
+        /// </summary>
     public void StopTalk()
     {
         // 会話イベントをしていない状態にする
@@ -97,5 +104,19 @@ public class NonPlayerCharacter : MonoBehaviour
         {
             dialogController.HideDialog();
         }
+
+        // 会話終了状態にする
+        playerController.IsTalking = false;
+
+
+    }
+    /// <summary>
+    /// 固定型会話ウインドウを利用するための設定
+    /// </summary>
+    /// <param name="uiManager"></param>
+    public void SetUpFixedTalkWindow(UIManager uiManager)
+    {
+        this.uiManager = uiManager;
+        isFixedTalkWindowUsing = true;
     }
 }

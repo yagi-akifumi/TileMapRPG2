@@ -16,37 +16,60 @@ MonoBehaviour:
   - eventType: 0
     no: 0
     title: Dog
-    dialog: "\u308F\u3093\u308F\u3093\uFF01"
+    dialogs: []
     eventSprite: {fileID: 0}
     eventItemName: 0
     eventItemCount: 0
+    eventDataDetailsList: []
   - eventType: 0
     no: 1
     title: "\u6751\u4EBA1"
-    dialog: "\u4ECA\u65E5\u306F\u826F\u3044\u304A\u5929\u6C17\u3067\u3059\u306D\uFF01"
+    dialogs: []
     eventSprite: {fileID: 0}
     eventItemName: 0
     eventItemCount: 0
+    eventDataDetailsList: []
   - eventType: 0
     no: 2
     title: "\u5E97\u54E11"
-    dialog: "\u3044\u3089\u3063\u3057\u3083\u3044\uFF01\n\u4F55\u3092\u304A\u6C42\u3081\u3067\u3059\u304B\uFF1F"
+    dialogs: []
     eventSprite: {fileID: 0}
     eventItemName: 0
     eventItemCount: 0
+    eventDataDetailsList: []
   - eventType: 1
     no: 0
     title: "\u5B9D\u7BB1"
-    dialog: 
+    dialogs: []
     eventSprite: {fileID: 6271433347336348431, guid: d60a9091c80d444d793acf7f757d3127,
       type: 3}
     eventItemName: 0
     eventItemCount: 2
+    eventDataDetailsList: []
   - eventType: 1
     no: 1
     title: "\u5B9D\u7BB1"
-    dialog: 
+    dialogs: []
     eventSprite: {fileID: 6271433347336348431, guid: d60a9091c80d444d793acf7f757d3127,
       type: 3}
     eventItemName: 3
     eventItemCount: 1
+    eventDataDetailsList:
+    - eventProgressType: 0
+      dialogs:
+      - 
+      - 
+      - 
+      eventSprite: {fileID: 0}
+      eventItemNames: 
+      eventItemCounts: 
+    - eventProgressType: 0
+      dialogs: []
+      eventSprite: {fileID: 0}
+      eventItemNames: 
+      eventItemCounts: 
+    - eventProgressType: 0
+      dialogs: []
+      eventSprite: {fileID: 0}
+      eventItemNames: 
+      eventItemCounts: 

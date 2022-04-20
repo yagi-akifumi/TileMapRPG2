@@ -56,9 +56,10 @@ public class TreasureBox : MonoBehaviour
     public void OpenTresureBox(Vector3 playerPos, PlayerController playerController)
     {
 
-        if (this.playerController == null)
+        if (this.playerController == null)//エラー確認：if文がきちんと動いているか？
         {
             this.playerController = playerController;
+            Debug.Log(this.playerController);
         }
 
         //isOpen = true;
@@ -83,11 +84,11 @@ public class TreasureBox : MonoBehaviour
     /// </summary>
     public void CloseTreasureBox()
     {
-        playerController.IsTalking = false;
+        playerController.IsTalking = false;//エラー：null →playerController.IsTalking 
 
         //Debug.Log("探索イベント用の会話ウインドウを閉じる");
         // 探索イベント用の会話ウインドウを閉じる
-        dialogController.HideDialog();
+        dialogController.HideDialog();//TODO ここがエラーになる・・・。
     }
 
     /// <summary>

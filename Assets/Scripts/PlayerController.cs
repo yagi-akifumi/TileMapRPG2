@@ -144,12 +144,11 @@ public class PlayerController : MonoBehaviour
 
             // 正規化
             lookDirection.Normalize();
-
-            // キー入力の値と Blend Tree で設定した移動アニメ用の値を確認し、移動アニメを再生
-            anim.SetFloat("Look X", lookDirection.x);
-            anim.SetFloat("Look Y", lookDirection.y);
-        }
-
+        } //TODO←怪しいポイント①
+        // キー入力の値と Blend Tree で設定した移動アニメ用の値を確認し、移動アニメを再生
+        anim.SetFloat("Look X", lookDirection.x);
+        anim.SetFloat("Look Y", lookDirection.y);
+        //TODO←怪しいポイント②
         // 停止アニメーション用
         anim.SetFloat("Speed", move.magnitude);
 
@@ -160,8 +159,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Action()
     {
+        
+        if (isTalking)//isTalking->true
+        {
+        return;
+        }
         if (Input.GetButtonDown("Action"))
         {
+            Debug.Log("アクション開始");
             // Player の位置を起点とし、Player の向いている方向に 1.0f 分だけ Ray を発射し、
             // 数の文字列の Layer を判定対象に接触するか判定し、その情報を hit 変数に代入
             RaycastHit2D hit = Physics2D.Raycast(rb.position, lookDirection, 1.0f, LayerMask.GetMask(actionlayerMasks));
@@ -179,7 +184,7 @@ public class PlayerController : MonoBehaviour
                     if (!npc.isTalking)
                     {
                         // NPC との会話イベントを発生させる
-                        npc.PlayTalk(transform.position);
+                        npc.PlayTalk(transform.position,this);
 
                         // Player を会話イベント中の状態にする
                         isTalking = true;

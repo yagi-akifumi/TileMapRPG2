@@ -2479,10 +2479,11 @@ MonoBehaviour:
     eventType: 0
     no: 0
     title: 
-    dialog: 
+    dialogs: []
     eventSprite: {fileID: 0}
     eventItemName: 0
     eventItemCount: 0
+    eventDataDetailsList: []
 --- !u!61 &223524251
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2607,6 +2608,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treasureBoxesList:
   - {fileID: 223524250}
+  nonPlayerCharactersList:
+  - {fileID: 611629352}
+  uiManager: {fileID: 772233588}
 --- !u!4 &276989418
 Transform:
   m_ObjectHideFlags: 0
@@ -2858,6 +2862,7 @@ MonoBehaviour:
     count: 2
     number: 1
   getSearchEventNumsList: 
+  useTalkWindowType: 0
 --- !u!4 &376887603
 Transform:
   m_ObjectHideFlags: 0
@@ -3296,15 +3301,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTalking: 0
+  isFixedTalkWindowUsing: 1
   npcTalkEventNo: 0
   eventData:
     eventType: 0
     no: 0
     title: 
-    dialog: 
+    dialogs: []
     eventSprite: {fileID: 0}
     eventItemName: 0
     eventItemCount: 0
+    eventDataDetailsList: []
 --- !u!1 &772233587
 GameObject:
   m_ObjectHideFlags: 0
@@ -10944,10 +10951,11 @@ MonoBehaviour:
     eventType: 0
     no: 0
     title: 
-    dialog: 
+    dialogs: []
     eventSprite: {fileID: 0}
     eventItemName: 0
     eventItemCount: 0
+    eventDataDetailsList: []
 --- !u!225 &2072160797
 CanvasGroup:
   m_ObjectHideFlags: 0

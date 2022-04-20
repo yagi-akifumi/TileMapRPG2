@@ -27,15 +27,16 @@ public class UIManager : MonoBehaviour
     /// 固定型の会話ウインドウを表示
     /// </summary>
     /// <param name="eventData"></param>
-    public void OpenTalkWindow(EventData eventData)
+    /// <param name="nonPlayerCharacter"></param>
+    public void OpenTalkWindow(EventData eventData, NonPlayerCharacter nonPlayerCharacter)
     {
-        dialogController.DisplayDialog(eventData);
+        StartCoroutine(dialogController.DisplayDialog(eventData, nonPlayerCharacter));    //　<=　呼び出し方法を変更し、第2引数を追加します。
     }
 
     /// <summary>
-    /// 固定型の会話ウインドウを非表示
-    /// </summary>
-    public void CloseTalkWindow()
+        /// 固定型の会話ウインドウを非表示
+        /// </summary>
+        public void CloseTalkWindow()
     {
         dialogController.HideDialog();
     }
