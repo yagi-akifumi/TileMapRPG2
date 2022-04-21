@@ -76,7 +76,8 @@ public class TreasureBox : MonoBehaviour
 
         //Debug.Log("探索イベント用の会話ウインドウを開く");
         // 探索イベント用の会話ウインドウを開く
-        dialogController.DisplaySearchDialog(eventData, this);
+        // dialogController.DisplaySearchDialog(eventData, this);
+        StartCoroutine(dialogController.DisplaySearchDialog(eventData, this));
     }
 
     /// <summary>
@@ -88,7 +89,7 @@ public class TreasureBox : MonoBehaviour
 
         //Debug.Log("探索イベント用の会話ウインドウを閉じる");
         // 探索イベント用の会話ウインドウを閉じる
-        dialogController.HideDialog();//TODO ここがエラーになる・・・。
+        dialogController.HideDialog();
     }
 
     /// <summary>
@@ -111,8 +112,9 @@ public class TreasureBox : MonoBehaviour
         if (isOpen)
         {
             // ① 宝箱の画像を開封済にする場合
-            spriteRenderer.sprite = eventData.eventSprite;
-
+            //<= ☆①　右辺の参照する変数を変更します
+            spriteRenderer.sprite = eventData.eventDataDetailsList[0].eventSprite;
+            
             // ② 宝箱自体を非表示にする場合
             //this.gameObject.SetActive(false);
         }
