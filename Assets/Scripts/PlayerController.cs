@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetButtonDown("Action"))
         {
-            Debug.Log("アクション開始");
+            //Debug.Log("アクション開始");(確認のため問題なければ削除OK)
             // Player の位置を起点とし、Player の向いている方向に 1.0f 分だけ Ray を発射し、
             // 数の文字列の Layer を判定対象に接触するか判定し、その情報を hit 変数に代入
             RaycastHit2D hit = Physics2D.Raycast(rb.position, lookDirection, 1.0f, LayerMask.GetMask(actionlayerMasks));

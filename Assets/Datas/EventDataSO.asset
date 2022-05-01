@@ -16,60 +16,59 @@ MonoBehaviour:
   - eventType: 0
     no: 0
     title: Dog
-    dialogs: []
-    eventSprite: {fileID: 0}
-    eventItemName: 0
-    eventItemCount: 0
-    eventDataDetailsList: []
+    eventDataDetailsList:
+    - eventProgressType: 1
+      dialogs:
+      - "\u304F\u3045\u30FC\u3093..."
+      - "\u602A\u6211\u3092\u3057\u3066\u3044\u308B\u3088\u3046\u3060\u3002\n\u85AC\u8349\u304C1\u3064\u3042\u308C\u3070\u76F4\u3057\u3066\n\u3042\u3052\u3089\u308C\u308B\u304B\u3082\u3057\u308C\u306A\u3044"
+      eventSprite: {fileID: 0}
+      eventItemNames: 00000000
+      eventItemCounts: 01000000
+    - eventProgressType: 3
+      dialogs:
+      - "\u85AC\u8349\u3092\u4F7F\u3044\u3001\u624B\u5F53\u3092\u3057\u305F\u3002"
+      - "\u8DB3\u5143\u306B\u4F55\u304B\u3042\u308B\u3088\u3046\u3060\u3002\n\u4E00\u751F\u61F8\u547D\u6398\u3063\u3066\u304F\u308C\u3066\u3044\u308B\u3002"
+      eventSprite: {fileID: 0}
+      eventItemNames: 05000000
+      eventItemCounts: 01000000
+    - eventProgressType: 4
+      dialogs:
+      - "\u308F\u3093\u308F\u3093\uFF01"
+      - "\u5143\u6C17\u306B\u306A\u3063\u305F\u3001\u826F\u304B\u3063\u305F\uFF01\uFF01"
+      eventSprite: {fileID: 0}
+      eventItemNames: 
+      eventItemCounts: 
   - eventType: 0
     no: 1
     title: "\u6751\u4EBA1"
-    dialogs: []
-    eventSprite: {fileID: 0}
-    eventItemName: 0
-    eventItemCount: 0
     eventDataDetailsList: []
   - eventType: 0
     no: 2
     title: "\u5E97\u54E11"
-    dialogs: []
-    eventSprite: {fileID: 0}
-    eventItemName: 0
-    eventItemCount: 0
-    eventDataDetailsList: []
-  - eventType: 1
-    no: 0
-    title: "\u5B9D\u7BB1"
-    dialogs: []
-    eventSprite: {fileID: 6271433347336348431, guid: d60a9091c80d444d793acf7f757d3127,
-      type: 3}
-    eventItemName: 0
-    eventItemCount: 2
-    eventDataDetailsList: []
-  - eventType: 1
-    no: 1
-    title: "\u5B9D\u7BB1"
-    dialogs: []
-    eventSprite: {fileID: 6271433347336348431, guid: d60a9091c80d444d793acf7f757d3127,
-      type: 3}
-    eventItemName: 3
-    eventItemCount: 1
     eventDataDetailsList:
     - eventProgressType: 0
       dialogs:
-      - 
-      - 
-      - 
+      - "\u3044\u3089\u3063\u3057\u3083\u3044\u307E\u305B"
       eventSprite: {fileID: 0}
       eventItemNames: 
       eventItemCounts: 
+  - eventType: 1
+    no: 0
+    title: "\u5B9D\u7BB1"
+    eventDataDetailsList:
     - eventProgressType: 0
       dialogs: []
-      eventSprite: {fileID: 0}
-      eventItemNames: 
-      eventItemCounts: 
+      eventSprite: {fileID: 6271433347336348431, guid: d60a9091c80d444d793acf7f757d3127,
+        type: 3}
+      eventItemNames: 03000000
+      eventItemCounts: 03000000
+  - eventType: 1
+    no: 1
+    title: "\u5B9D\u7BB1"
+    eventDataDetailsList:
     - eventProgressType: 0
       dialogs: []
-      eventSprite: {fileID: 0}
-      eventItemNames: 
-      eventItemCounts: 
+      eventSprite: {fileID: 6271433347336348431, guid: d60a9091c80d444d793acf7f757d3127,
+        type: 3}
+      eventItemNames: 070000000200000006000000
+      eventItemCounts: 64000000010000000a000000

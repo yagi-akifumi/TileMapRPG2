@@ -175,7 +175,6 @@ public class DataBaseManager : MonoBehaviour
     /// <summary>
     /// アイテムの名前をアイテムの種類ごとに分類して List を作成
     /// </summary>
-    // TODO 山浦先生に質問する。
     private void CreateItemNamesListFromItemData()
     {
 
