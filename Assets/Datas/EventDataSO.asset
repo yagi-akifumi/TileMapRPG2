@@ -70,5 +70,5 @@ MonoBehaviour:
       dialogs: []
       eventSprite: {fileID: 6271433347336348431, guid: d60a9091c80d444d793acf7f757d3127,
         type: 3}
-      eventItemNames: 070000000200000006000000
-      eventItemCounts: 64000000010000000a000000
+      eventItemNames: 070000000400000006000000
+      eventItemCounts: 10270000010000000a000000
